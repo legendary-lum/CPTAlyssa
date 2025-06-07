@@ -7,7 +7,7 @@ public class CPTalyssa{
 		Console con = new Console("Connect 4", 800,800);
 		
 		// 2D Array Board
-		int[][] intBoard = new int[6][8];
+		int[][] intBoard = new int[6][7];
 		//error in the array for 7
 		
 		con.setDrawColor(Color.BLUE);
@@ -60,55 +60,68 @@ public class CPTalyssa{
 			while(intCount1 <= 6 && intCount2 <= 6 && intCount3 <= 6 && intCount4 <= 6 && intCount5 <= 6 && intCount6 <= 6 && intCount7 <= 6){
 			con.setDrawColor(Color.RED);
 			
-			/*
 			con.println("Player 1: What column do you want to drop your piece?");
 			strP1 = con.readLine();
 			intP1 = Integer.parseInt(strP1);
 			
 				if(strP1.equalsIgnoreCase("1")){
-					intBoard[intCount1][intP1] = 1;
+					intBoard[intCount1][intP1-1] = 1;
 					intCount1++;
 					intX1 = 50;
 					intY1 = intY1 - 100;					
 					con.fillOval(intX1, intY1, 75, 75);
+					boolean blnChecker = CPTtools.checker(intBoard);
+					con.println(blnChecker);
 				}else if(strP1.equalsIgnoreCase("2")){
-					intBoard[intCount2][intP1] = 1;
+					intBoard[intCount2][intP1-1] = 1;
 					intCount2++;
 					intX2 = 150;
 					intY2 = intY2 - 100;
 					con.fillOval(intX2, intY2, 75, 75);
+					boolean blnChecker = CPTtools.checker(intBoard);
+					con.println(blnChecker);
 				}else if(strP1.equalsIgnoreCase("3")){
-					intBoard[intCount3][intP1] = 1;
+					intBoard[intCount3][intP1-1] = 1;
 					intCount3++;
 					intX3 = 250;
 					intY3 = intY3 - 100;
 					con.fillOval(intX3, intY3, 75, 75);
+					boolean blnChecker = CPTtools.checker(intBoard);
+					con.println(blnChecker);
 				}else if(strP1.equalsIgnoreCase("4")){
-					intBoard[intCount4][intP1] = 1;
+					intBoard[intCount4][intP1-1] = 1;
 					intCount4++;
 					intX4 = 350;
 					intY4 = intY4 - 100;
 					con.fillOval(intX4, intY4, 75, 75);
+					boolean blnChecker = CPTtools.checker(intBoard);
+					con.println(blnChecker);
 				}else if(strP1.equalsIgnoreCase("5")){
-					intBoard[intCount5][intP1] = 1;
+					intBoard[intCount5][intP1-1] = 1;
 					intCount5++;
 					intX5 = 450;
 					intY5 = intY5 - 100;
 					con.fillOval(intX5, intY5, 75, 75);
+					boolean blnChecker = CPTtools.checker(intBoard);
+					con.println(blnChecker);
 				}else if(strP1.equalsIgnoreCase("6")){
-					intBoard[intCount6][intP1] = 1;
+					intBoard[intCount6][intP1-1] = 1;
 					intCount6++;
 					intX6 = 550;
 					intY6 = intY6 - 100;
 					con.fillOval(intX6, intY6, 75, 75);
+					boolean blnChecker = CPTtools.checker(intBoard);
+					con.println(blnChecker);
 				}else if(strP1.equalsIgnoreCase("7")){
-					intBoard[intCount7][intP1] = 1;
+					intBoard[intCount7][intP1-1] = 1;
 					intCount7++;
 					intX7 = 650;
 					intY7 = intY7 - 100;
 					con.fillOval(intX7, intY7, 75, 75);
+					boolean blnChecker = CPTtools.checker(intBoard);
+					con.println(blnChecker);
 				}
-				con.clear(); */
+				// con.clear();
 				
 			con.setDrawColor(Color.YELLOW);
 
@@ -116,45 +129,43 @@ public class CPTalyssa{
 			strP2 = con.readLine();
 			intP2 = Integer.parseInt(strP2);
 				if(strP2.equalsIgnoreCase("1")){
-					intBoard[intCount1][intP2] = 2;
+					intBoard[intCount1][intP2-1] = 2;
 					intCount1++;
 					intX1 = 50;
 					intY1 = intY1 - 100;					
 					con.fillOval(intX1, intY1, 75, 75);
 				}else if(strP2.equalsIgnoreCase("2")){
-					intBoard[intCount2][intP2] = 2;
+					intBoard[intCount2][intP2-1] = 2;
 					intCount2++;
 					intX2 = 150;
 					intY2 = intY2 - 100;
 					con.fillOval(intX2, intY2, 75, 75);
 				}else if(strP2.equalsIgnoreCase("3")){
-					intBoard[intCount3][intP2] = 2;
+					intBoard[intCount3][intP2-1] = 2;
 					intCount3++;
 					intX3 = 250;
-					intX6 = 550;
-					intY6 = intY6 - 100;
 					intY3 = intY3 - 100;
 					con.fillOval(intX3, intY3, 75, 75);
 				}else if(strP2.equalsIgnoreCase("4")){
-					intBoard[intCount4][intP2] = 2;
+					intBoard[intCount4][intP2-1] = 2;
 					intCount4++;
 					intX4 = 350;
 					intY4 = intY4 - 100;
 					con.fillOval(intX4, intY4, 75, 75);
 				}else if(strP2.equalsIgnoreCase("5")){
-					intBoard[intCount5][intP2] = 2;
+					intBoard[intCount5][intP2-1] = 2;
 					intCount5++;
 					intX5 = 450;
 					intY5 = intY5 - 100;
 					con.fillOval(intX5, intY5, 75, 75);
 				}else if(strP2.equalsIgnoreCase("6")){
-					intBoard[intCount6][intP2] = 2;
+					intBoard[intCount6][intP2-1] = 2;
 					intCount6++;
 					intX6 = 550;
 					intY6 = intY6 - 100;
 					con.fillOval(intX6, intY6, 75, 75);
 				}else if(strP2.equalsIgnoreCase("7")){
-					intBoard[intCount7][intP2] = 2;
+					intBoard[intCount7][intP2-1] = 2;
 					intCount7++;
 					intX7 = 650;
 					intY7 = intY7 - 100;
@@ -164,15 +175,5 @@ public class CPTalyssa{
 
 			}
 
-			/* con.println(" ");
-			con.println("----------------------------------------------------------------");
-			con.println("|        |        |        |        |        |        |        |");
-			con.println("|        |        |        |        |        |        |        |");
-			con.println("|        |        |        |        |        |        |        |");
-			con.println("----------------------------------------------------------------");
-			con.println("|        |        |        |        |        |        |        |");
-			con.println("|        |        |        |        |        |        |        |");
-			con.println("|        |        |        |        |        |        |        |");				
-			*/
 	}
 }

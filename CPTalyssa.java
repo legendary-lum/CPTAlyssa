@@ -70,58 +70,50 @@ public class CPTalyssa{
 					intX1 = 50;
 					intY1 = intY1 - 100;					
 					con.fillOval(intX1, intY1, 75, 75);
-					boolean blnChecker = CPTtools.checker(intBoard);
-					con.println(blnChecker);
 				}else if(strP1.equalsIgnoreCase("2")){
 					intBoard[intCount2][intP1-1] = 1;
 					intCount2++;
 					intX2 = 150;
 					intY2 = intY2 - 100;
 					con.fillOval(intX2, intY2, 75, 75);
-					boolean blnChecker = CPTtools.checker(intBoard);
-					con.println(blnChecker);
 				}else if(strP1.equalsIgnoreCase("3")){
 					intBoard[intCount3][intP1-1] = 1;
 					intCount3++;
 					intX3 = 250;
 					intY3 = intY3 - 100;
 					con.fillOval(intX3, intY3, 75, 75);
-					boolean blnChecker = CPTtools.checker(intBoard);
-					con.println(blnChecker);
 				}else if(strP1.equalsIgnoreCase("4")){
 					intBoard[intCount4][intP1-1] = 1;
 					intCount4++;
 					intX4 = 350;
 					intY4 = intY4 - 100;
 					con.fillOval(intX4, intY4, 75, 75);
-					boolean blnChecker = CPTtools.checker(intBoard);
-					con.println(blnChecker);
 				}else if(strP1.equalsIgnoreCase("5")){
 					intBoard[intCount5][intP1-1] = 1;
 					intCount5++;
 					intX5 = 450;
 					intY5 = intY5 - 100;
 					con.fillOval(intX5, intY5, 75, 75);
-					boolean blnChecker = CPTtools.checker(intBoard);
-					con.println(blnChecker);
 				}else if(strP1.equalsIgnoreCase("6")){
 					intBoard[intCount6][intP1-1] = 1;
 					intCount6++;
 					intX6 = 550;
 					intY6 = intY6 - 100;
 					con.fillOval(intX6, intY6, 75, 75);
-					boolean blnChecker = CPTtools.checker(intBoard);
-					con.println(blnChecker);
 				}else if(strP1.equalsIgnoreCase("7")){
 					intBoard[intCount7][intP1-1] = 1;
 					intCount7++;
 					intX7 = 650;
 					intY7 = intY7 - 100;
 					con.fillOval(intX7, intY7, 75, 75);
-					boolean blnChecker = CPTtools.checker(intBoard);
-					con.println(blnChecker);
 				}
-				// con.clear();
+				
+				int[][] intChecker = CPTtools.checker(intBoard);
+				if(intChecker[0][0] > -1){
+					con.println("WINNER");
+					con.println(intChecker[0][0]+","+intChecker[0][1]+"and"+intChecker[3][0]+","+intChecker[3][1]); 
+				}
+				//	con.clear();
 				
 			con.setDrawColor(Color.YELLOW);
 
@@ -171,7 +163,14 @@ public class CPTalyssa{
 					intY7 = intY7 - 100;
 					con.fillOval(intX7, intY7, 75, 75);
 				}
-				con.clear();
+				// con.clear();
+				intChecker = CPTtools.checker(intBoard);
+				if(intChecker[0][0] > -1){
+					con.println("WINNER");
+					con.println(intChecker[0][0]+","+intChecker[0][1]+" and "+intChecker[3][0]+","+intChecker[3][1]);
+					
+				// drawLine(int intX1, int intY1, int intX2, int intY2) 
+				}
 
 			}
 

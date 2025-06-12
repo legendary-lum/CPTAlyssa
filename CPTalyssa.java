@@ -67,6 +67,29 @@ public class CPTalyssa{
 	public static int intWinsTemp;
 	public static void main(String[] args){
 	
+	TextInputFile lastthemeopen = new TextInputFile("lasttheme.txt");
+	String strThemeName = lastthemeopen.readLine();
+	System.out.println(strThemeName);
+	
+	TextInputFile checkthemes = new TextInputFile("themes.txt");
+		while(checkthemes.eof() == false){
+			String strCheckName = checkthemes.readLine();
+		
+			if(strCheckName.equalsIgnoreCase(strThemeName)){
+				strTheme = strThemeName;
+				intPlayer1r = checkthemes.readInt();
+				intPlayer1g = checkthemes.readInt();
+				intPlayer1b = checkthemes.readInt();
+				intPlayer2r = checkthemes.readInt();
+				intPlayer2g = checkthemes.readInt();
+				intPlayer2b = checkthemes.readInt();
+				intBoardr = checkthemes.readInt();
+				intBoardg = checkthemes.readInt();
+				intBoardb = checkthemes.readInt();
+				strTitle = checkthemes.readLine();
+			}
+		}
+	
 		// Main menu
 		String strOption = "";
 		while(!strOption.equalsIgnoreCase("q")){
@@ -75,6 +98,7 @@ public class CPTalyssa{
 		con.println("(V)iew leaderboard");
 		con.println("(T)hemes");
 		con.println("(C)reate theme");
+		con.println("(H)elp");		
 		con.println("(Q)uit");
 		strOption = con.readLine();
 		con.clear();
@@ -84,41 +108,6 @@ public class CPTalyssa{
 		String strWins;
 		
 		if(strOption.equalsIgnoreCase("p") || strPlayAgain.equalsIgnoreCase("y")){	
-			/*
-			// Set all colours to theme last selected
-			TextInputFile lasttheme = new TextInputFile("lasttheme.txt");
-			String strlastThemeName = lasttheme.readLine();
-			TextInputFile defaulttheme = new TextInputFile("themes.txt");
-			intThemeCount = 0;
-			while(defaulttheme.eof() == false){
-				strtheme[intThemeCount][0] = themes.readLine();
-				inttheme[intThemeCount][0] = themes.readInt();
-				inttheme[intThemeCount][1] = themes.readInt();
-				inttheme[intThemeCount][2] = themes.readInt();
-				inttheme[intThemeCount][3] = themes.readInt();
-				inttheme[intThemeCount][4] = themes.readInt();
-				inttheme[intThemeCount][5] = themes.readInt();
-				inttheme[intThemeCount][6] = themes.readInt();
-				inttheme[intThemeCount][7] = themes.readInt();
-				inttheme[intThemeCount][8] = themes.readInt();
-				strtheme[intThemeCount][1] = themes.readLine();
-				intThemeCount++;
-			}
-				if(strName.equalsIgnoreCase(strlastThemeName)){
-					strTheme = strtheme[intIndex][0];
-					intPlayer1r = inttheme[intIndex][0];
-					intPlayer1g = inttheme[intIndex][1];
-					intPlayer1b = inttheme[intIndex][2];
-					intPlayer2r = inttheme[intIndex][3];
-					intPlayer2g = inttheme[intIndex][4];
-					intPlayer2b = inttheme[intIndex][5];
-					intBoardr = inttheme[intIndex][6];
-					intBoardg = inttheme[intIndex][7];
-					intBoardb = inttheme[intIndex][8];
-					strTitle = strtheme[intIndex][1];
-			}
-			
-			lasttheme.close();	*/
 			
 			// 2D Array Board
 			int[][] intBoard = new int[6][7];
@@ -295,7 +284,7 @@ public class CPTalyssa{
 								continue;
 							// Adding wins to leaderboard
 							}else{
-								TextOutputFile leaderboard = new TextOutputFile("leaderboard.txt");
+								TextOutputFile leaderboard = new TextOutputFile("leaderboard.txt", true);
 									leaderboard.println(strName1);
 									leaderboard.println(intPlayer1Wins);
 									leaderboard.println(strName2);
@@ -385,7 +374,7 @@ public class CPTalyssa{
 								continue;
 							// Adding wins to leaderboard
 							}else{
-								TextOutputFile leaderboard = new TextOutputFile("leaderboard.txt");
+								TextOutputFile leaderboard = new TextOutputFile("leaderboard.txt", true);
 									leaderboard.println(strName1);
 									leaderboard.println(intPlayer1Wins);
 									leaderboard.println(strName2);
@@ -407,12 +396,15 @@ public class CPTalyssa{
 						}		
 					}
 		}
+		// View leaderboard
 		}else if(strOption.equalsIgnoreCase("v")){	
 			printleaderboard();
 			
 			con.println("Hit enter to return to main menu");
 			con.readLine();
 			con.clear();
+			
+		// View themes (can load in your own themes file)
 		}else if(strOption.equalsIgnoreCase("t")){
 			TextInputFile themes = new TextInputFile("themes.txt");
 			intThemeCount = 0;
@@ -462,13 +454,13 @@ public class CPTalyssa{
 				intBoardg = inttheme[intIndex][7];
 				intBoardb = inttheme[intIndex][8];
 				strTitle = strtheme[intIndex][1];
-				
+		
 				TextOutputFile lasttheme = new TextOutputFile("lasttheme.txt");
-				lasttheme.println(strtheme[intIndex][0]);
+				lasttheme.println(strTheme);
 				lasttheme.close();
 			
 				con.clear();
-			
+		// Create your own theme (customize colours)
 		}else if(strOption.equalsIgnoreCase("c")){
 			TextInputFile themes = new TextInputFile("themes.txt");
 			intThemeCount = 0;
@@ -537,9 +529,35 @@ public class CPTalyssa{
 			
 			con.clear();
 		
-		/*}else if(strOption.equalsIgnoreCase("h")){
+		// Help desk
+		}else if(strOption.equalsIgnoreCase("h")){
 			con.println("How to play:");
-			con.println("*/
+			con.println("Players identify themselves as player 1 or player 2.");
+			con.println("They drop/choose desired column that the discs will 'fall' into on the grid.");
+			con.println("The goal is to stack their colored discs upwards, horizontally, or diagonally");
+			con.println("Note: use strategy to block opponents while aiming to be the first player to get 4 in a row to win.");
+			
+			con.println("Hit enter to return to main menu");
+			con.readLine();
+			con.clear();
+			
+		}else if(strOption.equalsIgnoreCase("s")){
+			con.println("Why don’t Connect Four players ever get into arguments? say wh(y)/type y.");
+			char chrresponse = con.readChar();
+			if(chrresponse == 'y'){
+				con.println("Because they always know when to DROP it!");
+				con.sleep(1000);
+				con.println("If you don't get it it's because you drop the pieces into the board and drop arguments");
+			}else{
+				con.println("Okay no joke for you.");
+			}
+			
+			con.sleep(1000);
+			con.println("Hit enter to return to main menu");
+			con.readLine();
+			con.clear();
+			
+		// Quit the game (close console)
 		}else if(strOption.equalsIgnoreCase("q")){
 			con.println("Thank You For Playing");
 			con.sleep(2000);
@@ -617,10 +635,10 @@ public class CPTalyssa{
 	
 			intIndexLead++;
 		}
-		
-//		for(intCountLead = 0; intCountLead < intIndexLead; intCountLead++){
-//			con.println(strNames[intCountLead] + ": " + intWins[intCountLead]);
-//		}
+		System.out.println("Unsorted leaderboard");
+		for(intCountLead = 0; intCountLead < intIndexLead; intCountLead++){
+			System.out.println(strNames[intCountLead] + ": " + intWins[intCountLead]);
+		}
 		
 		// bubble sort in descending order	
 		for(intCountLead2 = 0; intCountLead2 < intIndexLead-1; intCountLead2++){

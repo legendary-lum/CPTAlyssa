@@ -114,7 +114,7 @@ public class CPTalyssa{
 			int[][] intBoard = new int[6][7];
 
 			// Drawing the grid/frame/column numbers/title
-			con.drawString(strTitle, 500, 5);	
+			con.drawString(strTitle, 500, 15);	
 			con.drawString("____________________", 440, 17);
 			con.drawString("1", 580, 45);
 			con.drawString("2", 680, 45);
@@ -619,7 +619,7 @@ public class CPTalyssa{
 			con.fillRect(537,580-intRectY,700,8);
 			intRectY = intRectY + 100;
 			
-		}	
+		}
 	}
 	public static void printleaderboard(){
 		TextInputFile wins = new TextInputFile("leaderboard.txt");

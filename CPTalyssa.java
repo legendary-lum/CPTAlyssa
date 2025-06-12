@@ -113,7 +113,9 @@ public class CPTalyssa{
 			// 2D Array Board
 			int[][] intBoard = new int[6][7];
 
-			// Drawing the grid/frame
+			// Drawing the grid/frame/column numbers/title
+			con.drawString(strTitle, 500, 5);	
+			con.drawString("____________________", 440, 17);
 			con.drawString("1", 580, 45);
 			con.drawString("2", 680, 45);
 			con.drawString("3", 780, 45);

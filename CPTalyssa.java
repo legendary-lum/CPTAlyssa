@@ -2,6 +2,7 @@
 // Program: Connect 4
 // Date Created: May 27, 2025
 // Version: 1.67
+// Description: Connect 4 Game created on java
 
 import arc.*;
 import java.awt.Color;

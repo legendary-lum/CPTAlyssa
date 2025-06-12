@@ -1,5 +1,6 @@
 // Name: Alyssa Lum
 // Program: Connect 4
+// Date Created: May 27, 2025
 // Version: 1.67
 
 import arc.*;
@@ -35,17 +36,46 @@ public class CPTalyssa{
 	public static int intY7 = 700;;
 	public static int intPlayer1Wins = 0;
 	public static int intPlayer2Wins = 0;
+	public static String strTheme = "Classic";
+	public static int intBoardr = 0;
+	public static int intBoardg = 0;
+	public static int intBoardb = 255;
+	public static int intPlayer1r = 255;
+	public static int intPlayer1g = 0;
+	public static int intPlayer1b = 0;
+	public static int intPlayer2r = 255;
+	public static int intPlayer2g = 255;
+	public static int intPlayer2b = 0;
+	public static String strTitle = "";
+	public static String[][] strtheme = new String [][] { {"","",""},
+														{"","",""},
+														{"","",""},
+														{"","",""},
+														{"","",""}};
+	public static int[][] inttheme = new int [][] { {0,0,0,0,0,0,0,0,0},
+													{0,0,0,0,0,0,0,0,0},
+													{0,0,0,0,0,0,0,0,0},
+													{0,0,0,0,0,0,0,0,0},
+													{0,0,0,0,0,0,0,0,0}};
+	public static int intThemeCount = 0;
+	public static String[] strNames = new String [] {"", "", "", "", "", "", "", "", "", ""};
+	public static int[] intWins = new int [] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	public static int intIndexLead = 0;
+	public static int intCountLead;
+	public static int intCountLead2;
+	public static String strNamesTemp;
+	public static int intWinsTemp;
 	public static void main(String[] args){
-			
+	
 		// Main menu
 		String strOption = "";
 		while(!strOption.equalsIgnoreCase("q")){
 		con.println("Welcome to Connect 4! Select where you would like to go with one of the letter in the brackets!");
-		con.println("(p)lay");
-		con.println("(v)iew leaderboard");
-		con.println("(t)hemes");
-		con.println("(c)reate theme");
-		con.println("(q)uit");
+		con.println("(P)lay");
+		con.println("(V)iew leaderboard");
+		con.println("(T)hemes");
+		con.println("(C)reate theme");
+		con.println("(Q)uit");
 		strOption = con.readLine();
 		con.clear();
 		
@@ -53,19 +83,63 @@ public class CPTalyssa{
 		String strNames;
 		String strWins;
 		
-		if(strOption.equalsIgnoreCase("p") || strPlayAgain.equalsIgnoreCase("y")){		
+		if(strOption.equalsIgnoreCase("p") || strPlayAgain.equalsIgnoreCase("y")){	
+			/*
+			// Set all colours to theme last selected
+			TextInputFile lasttheme = new TextInputFile("lasttheme.txt");
+			String strlastThemeName = lasttheme.readLine();
+			TextInputFile defaulttheme = new TextInputFile("themes.txt");
+			intThemeCount = 0;
+			while(defaulttheme.eof() == false){
+				strtheme[intThemeCount][0] = themes.readLine();
+				inttheme[intThemeCount][0] = themes.readInt();
+				inttheme[intThemeCount][1] = themes.readInt();
+				inttheme[intThemeCount][2] = themes.readInt();
+				inttheme[intThemeCount][3] = themes.readInt();
+				inttheme[intThemeCount][4] = themes.readInt();
+				inttheme[intThemeCount][5] = themes.readInt();
+				inttheme[intThemeCount][6] = themes.readInt();
+				inttheme[intThemeCount][7] = themes.readInt();
+				inttheme[intThemeCount][8] = themes.readInt();
+				strtheme[intThemeCount][1] = themes.readLine();
+				intThemeCount++;
+			}
+				if(strName.equalsIgnoreCase(strlastThemeName)){
+					strTheme = strtheme[intIndex][0];
+					intPlayer1r = inttheme[intIndex][0];
+					intPlayer1g = inttheme[intIndex][1];
+					intPlayer1b = inttheme[intIndex][2];
+					intPlayer2r = inttheme[intIndex][3];
+					intPlayer2g = inttheme[intIndex][4];
+					intPlayer2b = inttheme[intIndex][5];
+					intBoardr = inttheme[intIndex][6];
+					intBoardg = inttheme[intIndex][7];
+					intBoardb = inttheme[intIndex][8];
+					strTitle = strtheme[intIndex][1];
+			}
+			
+			lasttheme.close();	*/
+			
 			// 2D Array Board
 			int[][] intBoard = new int[6][7];
 
 			// Drawing the grid/frame
-			con.setDrawColor(Color.BLUE);
-			con.fillRect(37,80,700,610);		
+			con.drawString("1", 580, 45);
+			con.drawString("2", 680, 45);
+			con.drawString("3", 780, 45);
+			con.drawString("4", 880, 45);
+			con.drawString("5", 980, 45);
+			con.drawString("6", 1080, 45);
+			con.drawString("7", 1180, 45);
+			
+			con.setDrawColor(new Color(intBoardr, intBoardg, intBoardb));
+			con.fillRect(537,80,700,610);		
 
 			int intRect1;
 			int intRectX = 0;
 			for(intRect1 = 0; intRect1 < 6; intRect1++){
 				con.setDrawColor(Color.BLACK);
-				con.fillRect(135+intRectX,75,8,620);
+				con.fillRect(635+intRectX,75,8,620);
 				intRectX = intRectX + 100;
 			}
 			
@@ -73,7 +147,7 @@ public class CPTalyssa{
 			int intRectY = 0;
 			for(intRect2 = 0; intRect2 < 5; intRect2++){
 				con.setDrawColor(Color.BLACK);
-				con.fillRect(37,580-intRectY,700,8);
+				con.fillRect(537,580-intRectY,700,8);
 				intRectY = intRectY + 100;
 			}
 			
@@ -114,160 +188,23 @@ public class CPTalyssa{
 				strName2 = con.readLine();
 				con.clear();
 			
-			// Gathering input and drawing for player 1/Red piece
+			// Gathering input and drawing for player 1
 				while(intCount1 <= 6 && intCount2 <= 6 
-				&& intCount3 <= 6 && intCount4 <= 6 
-				&& intCount5 <= 6 && intCount6 <= 6 
-				&& intCount7 <= 6){
-				con.setDrawColor(Color.RED);
+					&& intCount3 <= 6 && intCount4 <= 6 
+					&& intCount5 <= 6 && intCount6 <= 6 
+					&& intCount7 <= 6){
 				
-				con.println(strName1+": What column do you want to drop your piece?");
-				strP1 = con.readLine();
-				intP1 = Integer.parseInt(strP1);
-				
-					if(strP1.equalsIgnoreCase("1")){
-						intBoard[intCount1][intP1-1] = 1;
-						intCount1++;
-						intX1 = 50;
-						intY1 = intY1 - 100;					
-						con.fillOval(intX1, intY1, 75, 75);
-					}else if(strP1.equalsIgnoreCase("2")){
-						intBoard[intCount2][intP1-1] = 1;
-						intCount2++;
-						intX2 = 150;
-						intY2 = intY2 - 100;
-						con.fillOval(intX2, intY2, 75, 75);
-					}else if(strP1.equalsIgnoreCase("3")){
-						intBoard[intCount3][intP1-1] = 1;
-						intCount3++;
-						intX3 = 250;
-						intY3 = intY3 - 100;
-						con.fillOval(intX3, intY3, 75, 75);
-					}else if(strP1.equalsIgnoreCase("4")){
-						intBoard[intCount4][intP1-1] = 1;
-						intCount4++;
-						intX4 = 350;
-						intY4 = intY4 - 100;
-						con.fillOval(intX4, intY4, 75, 75);
-					}else if(strP1.equalsIgnoreCase("5")){
-						intBoard[intCount5][intP1-1] = 1;
-						intCount5++;
-						intX5 = 450;
-						intY5 = intY5 - 100;
-						con.fillOval(intX5, intY5, 75, 75);
-					}else if(strP1.equalsIgnoreCase("6")){
-						intBoard[intCount6][intP1-1] = 1;
-						intCount6++;
-						intX6 = 550;
-						intY6 = intY6 - 100;
-						con.fillOval(intX6, intY6, 75, 75);
-					}else if(strP1.equalsIgnoreCase("7")){
-						intBoard[intCount7][intP1-1] = 1;
-						intCount7++;
-						intX7 = 650;
-						intY7 = intY7 - 100;
-						con.fillOval(intX7, intY7, 75, 75);
-					}
-					
-					int[][] intChecker = CPTtools.checker(intBoard);
-					intChecker = CPTtools.checker(intBoard);
-					if(intChecker[0][0] > -1){
-						con.println(strName1+" is the WINNER");
-						intPlayer1Wins = intPlayer1Wins + 1;						
-						con.println(intChecker[0][0]+","+intChecker[0][1]+" and "+intChecker[3][0]+","+intChecker[3][1]);
+				if(intCount1 == 6 && intCount2 == 6 
+					&& intCount3 == 6 && intCount4 == 6 
+					&& intCount5 == 6 && intCount6 == 6 
+					&& intCount7 == 6){
+						con.println("TIE: no winner");
 						con.println("Play again? (y)es or (n)o");
 						strPlayAgain = con.readLine();
 						if(strPlayAgain.equalsIgnoreCase("y")){
 							initializeBoard(intBoard);
 							continue;
-						}else{
-							TextOutputFile leaderboard = new TextOutputFile("leaderboard.txt");
-								leaderboard.println(strName1);
-								leaderboard.println(intPlayer1Wins);
-								leaderboard.println(strName2);
-								leaderboard.println(intPlayer2Wins);
-								intPlayer1Wins = 0;
-								intPlayer2Wins = 0;
-							leaderboard.close();
-							
-							TextInputFile wins = new TextInputFile("leaderboard.txt");
-							while(wins.eof() == false){
-								strNames = wins.readLine();
-								strWins = wins.readLine();
-								con.println(strNames);
-								con.println(strWins);
-							}
-							wins.close();
-							
-							con.println("Hit enter to return to main menu");
-							con.readLine();
-							con.clear();
-							
-							break;
-						}
-					}
-						con.clear();
-					
-			// Gathering input and drawing for player 2/Yellow piece
-				con.setDrawColor(Color.YELLOW);
 
-				con.println(strName2+": What column do you want to drop your piece?");
-				strP2 = con.readLine();
-				intP2 = Integer.parseInt(strP2);
-					if(strP2.equalsIgnoreCase("1")){
-						intBoard[intCount1][intP2-1] = 2;
-						intCount1++;
-						intX1 = 50;
-						intY1 = intY1 - 100;					
-						con.fillOval(intX1, intY1, 75, 75);
-					}else if(strP2.equalsIgnoreCase("2")){
-						intBoard[intCount2][intP2-1] = 2;
-						intCount2++;
-						intX2 = 150;
-						intY2 = intY2 - 100;
-						con.fillOval(intX2, intY2, 75, 75);
-					}else if(strP2.equalsIgnoreCase("3")){
-						intBoard[intCount3][intP2-1] = 2;
-						intCount3++;
-						intX3 = 250;
-						intY3 = intY3 - 100;
-						con.fillOval(intX3, intY3, 75, 75);
-					}else if(strP2.equalsIgnoreCase("4")){
-						intBoard[intCount4][intP2-1] = 2;
-						intCount4++;
-						intX4 = 350;
-						intY4 = intY4 - 100;
-						con.fillOval(intX4, intY4, 75, 75);
-					}else if(strP2.equalsIgnoreCase("5")){
-						intBoard[intCount5][intP2-1] = 2;
-						intCount5++;
-						intX5 = 450;
-						intY5 = intY5 - 100;
-						con.fillOval(intX5, intY5, 75, 75);
-					}else if(strP2.equalsIgnoreCase("6")){
-						intBoard[intCount6][intP2-1] = 2;
-						intCount6++;
-						intX6 = 550;
-						intY6 = intY6 - 100;
-						con.fillOval(intX6, intY6, 75, 75);
-					}else if(strP2.equalsIgnoreCase("7")){
-						intBoard[intCount7][intP2-1] = 2;
-						intCount7++;
-						intX7 = 650;
-						intY7 = intY7 - 100;
-						con.fillOval(intX7, intY7, 75, 75);
-					}
-					 con.clear();
-					intChecker = CPTtools.checker(intBoard);
-					if(intChecker[0][0] > -1){
-						con.println(strName2+" is the WINNER");	
-						intPlayer2Wins = intPlayer2Wins + 1;						
-						con.println(intChecker[0][0]+","+intChecker[0][1]+" and "+intChecker[3][0]+","+intChecker[3][1]);
-						con.println("Play again? (y)es or (n)o");
-						strPlayAgain = con.readLine();
-						if(strPlayAgain.equalsIgnoreCase("y")){
-							initializeBoard(intBoard);
-							continue;
 						}else{
 							TextOutputFile leaderboard = new TextOutputFile("leaderboard.txt");
 								leaderboard.println(strName1);
@@ -278,14 +215,9 @@ public class CPTalyssa{
 								intPlayer2Wins = 0;
 							leaderboard.close();
 							
-							TextInputFile wins = new TextInputFile("leaderboard.txt");
-							while(wins.eof() == false){
-								strNames = wins.readLine();
-								strWins = wins.readLine();
-								con.println(strNames);
-								con.println(strWins);
-							}
-							wins.close();
+							con.clear();
+							
+							printleaderboard();
 							
 							con.println("Hit enter to return to main menu");
 							con.readLine();
@@ -293,24 +225,321 @@ public class CPTalyssa{
 							
 							break;
 						}
-					}		
-					// drawLine(int intX1, int intY1, int intX2, int intY2) 
+						
+				}else{
+					con.setDrawColor(new Color(intPlayer1r, intPlayer1g, intPlayer1b));
 					
+					con.println(strName1+": What column do you want to drop your piece?");
+					strP1 = con.readLine();
+					intP1 = Integer.parseInt(strP1);
+					
+						if(strP1.equalsIgnoreCase("1")){
+							intBoard[intCount1][intP1-1] = 1;
+							intCount1++;
+							intX1 = 550;
+							intY1 = intY1 - 100;					
+							con.fillOval(intX1, intY1, 75, 75);
+						}else if(strP1.equalsIgnoreCase("2")){
+							intBoard[intCount2][intP1-1] = 1;
+							intCount2++;
+							intX2 = 650;
+							intY2 = intY2 - 100;
+							con.fillOval(intX2, intY2, 75, 75);
+						}else if(strP1.equalsIgnoreCase("3")){
+							intBoard[intCount3][intP1-1] = 1;
+							intCount3++;
+							intX3 = 750;
+							intY3 = intY3 - 100;
+							con.fillOval(intX3, intY3, 75, 75);
+						}else if(strP1.equalsIgnoreCase("4")){
+							intBoard[intCount4][intP1-1] = 1;
+							intCount4++;
+							intX4 = 850;
+							intY4 = intY4 - 100;
+							con.fillOval(intX4, intY4, 75, 75);
+						}else if(strP1.equalsIgnoreCase("5")){
+							intBoard[intCount5][intP1-1] = 1;
+							intCount5++;
+							intX5 = 950;
+							intY5 = intY5 - 100;
+							con.fillOval(intX5, intY5, 75, 75);
+						}else if(strP1.equalsIgnoreCase("6")){
+							intBoard[intCount6][intP1-1] = 1;
+							intCount6++;
+							intX6 = 1050;
+							intY6 = intY6 - 100;
+							con.fillOval(intX6, intY6, 75, 75);
+						}else if(strP1.equalsIgnoreCase("7")){
+							intBoard[intCount7][intP1-1] = 1;
+							intCount7++;
+							intX7 = 1150;
+							intY7 = intY7 - 100;
+							con.fillOval(intX7, intY7, 75, 75);
+						}
+						
+						int[][] intChecker = CPTtools.checker(intBoard);
+						intChecker = CPTtools.checker(intBoard);
+						if(intChecker[0][0] > -1){
+							con.println(strName1+" is the WINNER");
+							intPlayer1Wins = intPlayer1Wins + 1;						
+							
+							// Idea of printing a line with the coordinates from the array
+							// con.setDrawColor(Color.WHITE)
+							// con.drawLine(intChecker[0][0], intChecker[0][0], intChecker[3][0], intChecker[3][1]); 						
+							// con.println(intChecker[0][0]+","+intChecker[0][1]+" and "+intChecker[3][0]+","+intChecker[3][1]);
+							
+							con.println("Play again? (y)es or (n)o");
+							strPlayAgain = con.readLine();
+							if(strPlayAgain.equalsIgnoreCase("y")){
+								initializeBoard(intBoard);
+								continue;
+							// Adding wins to leaderboard
+							}else{
+								TextOutputFile leaderboard = new TextOutputFile("leaderboard.txt");
+									leaderboard.println(strName1);
+									leaderboard.println(intPlayer1Wins);
+									leaderboard.println(strName2);
+									leaderboard.println(intPlayer2Wins);
+									intPlayer1Wins = 0;
+									intPlayer2Wins = 0;
+								leaderboard.close();
+						
+								
+								con.clear();
+								
+								printleaderboard();
+																
+								con.println("Hit enter to return to main menu");
+								con.readLine();
+								con.clear();
+								
+								break;
+							}
+						}
+							con.clear();
+						
+				// Gathering input and drawing for player 2
+					con.setDrawColor(new Color(intPlayer2r, intPlayer2g, intPlayer2b));
+
+					con.println(strName2+": What column do you want to drop your piece?");
+					strP2 = con.readLine();
+					intP2 = Integer.parseInt(strP2);
+						if(strP2.equalsIgnoreCase("1")){
+							intBoard[intCount1][intP2-1] = 2;
+							intCount1++;
+							intX1 = 550;
+							intY1 = intY1 - 100;					
+							con.fillOval(intX1, intY1, 75, 75);
+						}else if(strP2.equalsIgnoreCase("2")){
+							intBoard[intCount2][intP2-1] = 2;
+							intCount2++;
+							intX2 = 650;
+							intY2 = intY2 - 100;
+							con.fillOval(intX2, intY2, 75, 75);
+						}else if(strP2.equalsIgnoreCase("3")){
+							intBoard[intCount3][intP2-1] = 2;
+							intCount3++;
+							intX3 = 750;
+							intY3 = intY3 - 100;
+							con.fillOval(intX3, intY3, 75, 75);
+						}else if(strP2.equalsIgnoreCase("4")){
+							intBoard[intCount4][intP2-1] = 2;
+							intCount4++;
+							intX4 = 850;
+							intY4 = intY4 - 100;
+							con.fillOval(intX4, intY4, 75, 75);
+						}else if(strP2.equalsIgnoreCase("5")){
+							intBoard[intCount5][intP2-1] = 2;
+							intCount5++;
+							intX5 = 950;
+							intY5 = intY5 - 100;
+							con.fillOval(intX5, intY5, 75, 75);
+						}else if(strP2.equalsIgnoreCase("6")){
+							intBoard[intCount6][intP2-1] = 2;
+							intCount6++;
+							intX6 = 1050;
+							intY6 = intY6 - 100;
+							con.fillOval(intX6, intY6, 75, 75);
+						}else if(strP2.equalsIgnoreCase("7")){
+							intBoard[intCount7][intP2-1] = 2;
+							intCount7++;
+							intX7 = 1150;
+							intY7 = intY7 - 100;
+							con.fillOval(intX7, intY7, 75, 75);
+						}
+						con.clear();
+						intChecker = CPTtools.checker(intBoard);
+						if(intChecker[0][0] > -1){
+							con.println(strName2+" is the WINNER");	
+							intPlayer2Wins = intPlayer2Wins + 1;
+							
+							// Idea of printing a line with the coordinates from the array
+							// con.setDrawColor(Color.WHITE)
+							// con.drawLine(intChecker[0][0], intChecker[0][0], intChecker[3][0], intChecker[3][1]); 						
+							// con.println(intChecker[0][0]+","+intChecker[0][1]+" and "+intChecker[3][0]+","+intChecker[3][1]);
+							
+							con.println("Play again? (y)es or (n)o");
+							strPlayAgain = con.readLine();
+							if(strPlayAgain.equalsIgnoreCase("y")){
+								initializeBoard(intBoard);
+								continue;
+							// Adding wins to leaderboard
+							}else{
+								TextOutputFile leaderboard = new TextOutputFile("leaderboard.txt");
+									leaderboard.println(strName1);
+									leaderboard.println(intPlayer1Wins);
+									leaderboard.println(strName2);
+									leaderboard.println(intPlayer2Wins);
+									intPlayer1Wins = 0;
+									intPlayer2Wins = 0;
+								leaderboard.close();
+								
+								con.clear();
+								
+								printleaderboard();
+																
+								con.println("Hit enter to return to main menu");
+								con.readLine();
+								con.clear();
+								
+								break;
+							}
+						}		
+					}
 		}
 		}else if(strOption.equalsIgnoreCase("v")){	
-			TextInputFile leaderboard = new TextInputFile("leaderboard.txt");
-			while(leaderboard.eof() == false){
-				strNames = leaderboard.readLine();
-				strWins = leaderboard.readLine();
-				con.println(strNames);
-				con.println(strWins);
-			}
-			leaderboard.close();
+			printleaderboard();
 			
 			con.println("Hit enter to return to main menu");
 			con.readLine();
 			con.clear();
-
+		}else if(strOption.equalsIgnoreCase("t")){
+			TextInputFile themes = new TextInputFile("themes.txt");
+			intThemeCount = 0;
+			while(themes.eof() == false){	
+				strtheme[intThemeCount][0] = themes.readLine();
+				inttheme[intThemeCount][0] = themes.readInt();
+				inttheme[intThemeCount][1] = themes.readInt();
+				inttheme[intThemeCount][2] = themes.readInt();
+				inttheme[intThemeCount][3] = themes.readInt();
+				inttheme[intThemeCount][4] = themes.readInt();
+				inttheme[intThemeCount][5] = themes.readInt();
+				inttheme[intThemeCount][6] = themes.readInt();
+				inttheme[intThemeCount][7] = themes.readInt();
+				inttheme[intThemeCount][8] = themes.readInt();
+				strtheme[intThemeCount][1] = themes.readLine();
+				intThemeCount++;
+			}
+			con.println("Select a theme by entering the number");
+			con.println("1: "+strtheme[0][0]);
+			con.println("2: "+strtheme[1][0]);
+			con.println("3: "+strtheme[2][0]);
+			con.println("4: "+strtheme[3][0]);
+			con.println("5: "+strtheme[4][0]);
+			String strThemeChosen = con.readLine();
+			
+			int intIndex = 0;
+			if(strThemeChosen.equalsIgnoreCase("1")){				
+				intIndex = 0;
+			}else if(strThemeChosen.equalsIgnoreCase("2")){				
+				intIndex = 1;
+			}else if(strThemeChosen.equalsIgnoreCase("3")){				
+				intIndex = 2;
+			}else if(strThemeChosen.equalsIgnoreCase("4")){				
+				intIndex = 3;
+			}else if(strThemeChosen.equalsIgnoreCase("5")){				
+				intIndex = 4;
+			}
+			
+				strTheme = strtheme[intIndex][0];
+				intPlayer1r = inttheme[intIndex][0];
+				intPlayer1g = inttheme[intIndex][1];
+				intPlayer1b = inttheme[intIndex][2];
+				intPlayer2r = inttheme[intIndex][3];
+				intPlayer2g = inttheme[intIndex][4];
+				intPlayer2b = inttheme[intIndex][5];
+				intBoardr = inttheme[intIndex][6];
+				intBoardg = inttheme[intIndex][7];
+				intBoardb = inttheme[intIndex][8];
+				strTitle = strtheme[intIndex][1];
+				
+				TextOutputFile lasttheme = new TextOutputFile("lasttheme.txt");
+				lasttheme.println(strtheme[intIndex][0]);
+				lasttheme.close();
+			
+				con.clear();
+			
+		}else if(strOption.equalsIgnoreCase("c")){
+			TextInputFile themes = new TextInputFile("themes.txt");
+			intThemeCount = 0;
+			while(themes.eof() == false){	
+				strtheme[intThemeCount][0] = themes.readLine();
+				inttheme[intThemeCount][0] = themes.readInt();
+				inttheme[intThemeCount][1] = themes.readInt();
+				inttheme[intThemeCount][2] = themes.readInt();
+				inttheme[intThemeCount][3] = themes.readInt();
+				inttheme[intThemeCount][4] = themes.readInt();
+				inttheme[intThemeCount][5] = themes.readInt();
+				inttheme[intThemeCount][6] = themes.readInt();
+				inttheme[intThemeCount][7] = themes.readInt();
+				inttheme[intThemeCount][8] = themes.readInt();
+				strtheme[intThemeCount][1] = themes.readLine();
+				intThemeCount++;
+			}
+			themes.close();
+			
+			TextOutputFile createtheme = new TextOutputFile ("themes.txt", true);
+			con.println("Come up with a name for your theme");
+			String strCreateName = con.readLine();
+			createtheme.println(strCreateName);
+			
+			con.println("Type a number from 0-255 for the r of player 1's piece");
+			int intCreateP1r = con.readInt();
+			createtheme.println(intCreateP1r);
+			
+			con.println("Type a number from 0-255 for the g of player 1's piece");
+			int intCreateP1g = con.readInt();
+			createtheme.println(intCreateP1g);
+			
+			con.println("Type a number from 0-255 for the b of player 1's piece");
+			int intCreateP1b = con.readInt();
+			createtheme.println(intCreateP1b);
+			
+			con.println("Type a number from 0-255 for the r of player 2's piece");
+			int intCreateP2r = con.readInt();
+			createtheme.println(intCreateP2r);
+			
+			con.println("Type a number from 0-255 for the g of player 2's piece");
+			int intCreateP2g = con.readInt();
+			createtheme.println(intCreateP2g);
+			
+			con.println("Type a number from 0-255 for the b of player 2's piece");
+			int intCreateP2b = con.readInt();
+			createtheme.println(intCreateP2b);
+			
+			con.println("Type a number from 0-255 for the r of the board");
+			int intCreateBoardr = con.readInt();
+			createtheme.println(intCreateBoardr);
+			
+			con.println("Type a number from 0-255 for the g of the board");
+			int intCreateBoardg = con.readInt();
+			createtheme.println(intCreateBoardg);
+			
+			con.println("Type a number from 0-255 for the b of the board");
+			int intCreateBoardb = con.readInt();
+			createtheme.println(intCreateBoardb);
+			
+			con.println("Come up with a title for your theme");
+			String strCreateTitle = con.readLine();
+			createtheme.println(strCreateTitle);
+			
+			createtheme.close();
+			
+			con.clear();
+		
+		/*}else if(strOption.equalsIgnoreCase("h")){
+			con.println("How to play:");
+			con.println("*/
 		}else if(strOption.equalsIgnoreCase("q")){
 			con.println("Thank You For Playing");
 			con.sleep(2000);
@@ -351,14 +580,14 @@ public class CPTalyssa{
 				intBoard[intRow][intCol] = 0;
 			}
 		}
-		con.setDrawColor(Color.BLUE);
-		con.fillRect(37,80,700,610);		
+		con.setDrawColor(new Color(intBoardr, intBoardg, intBoardb));
+		con.fillRect(537,80,700,610);		
 
 		int intRect1;
 		int intRectX = 0;
 		for(intRect1 = 0; intRect1 < 6; intRect1++){
 			con.setDrawColor(Color.BLACK);
-			con.fillRect(135+intRectX,75,8,620);
+			con.fillRect(635+intRectX,75,8,620);
 			intRectX = intRectX + 100;
 		}
 			
@@ -366,8 +595,56 @@ public class CPTalyssa{
 		int intRectY = 0;
 		for(intRect2 = 0; intRect2 < 5; intRect2++){
 			con.setDrawColor(Color.BLACK);
-			con.fillRect(37,580-intRectY,700,8);
+			con.fillRect(537,580-intRectY,700,8);
 			intRectY = intRectY + 100;
+			
 		}	
 	}
+	public static void printleaderboard(){
+		TextInputFile wins = new TextInputFile("leaderboard.txt");
+		
+		String[] strNames = new String[] {"", "", "", "", "", "", "", "", "", ""};
+		int[] intWins = new int [] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};;
+		int intIndexLead = 0;
+		int intCountLead = 0;
+		int intCountLead2 = 0;
+		String strNamesTemp = "";
+		int intWinsTemp = 0;
+		
+		while(wins.eof() == false){
+			strNames[intIndexLead] = wins.readLine();
+			intWins[intIndexLead] = wins.readInt();
+	
+			intIndexLead++;
+		}
+		
+//		for(intCountLead = 0; intCountLead < intIndexLead; intCountLead++){
+//			con.println(strNames[intCountLead] + ": " + intWins[intCountLead]);
+//		}
+		
+		// bubble sort in descending order	
+		for(intCountLead2 = 0; intCountLead2 < intIndexLead-1; intCountLead2++){
+			for(intCountLead = 0; intCountLead < intIndexLead-1; intCountLead++){
+				if(intWins[intCountLead] < intWins[intCountLead+1]){
+					// Swap Wins
+					intWinsTemp = intWins[intCountLead];
+					intWins[intCountLead] = intWins[intCountLead+1];
+					intWins[intCountLead+1] = intWinsTemp;
+										
+					// Swap Names
+					strNamesTemp = strNames[intCountLead];
+					strNames[intCountLead] = strNames[intCountLead+1];
+					strNames[intCountLead+1] = strNamesTemp;
+								
+				}
+			}
+		}
+		
+		for(intCountLead = 0; intCountLead < intIndexLead; intCountLead++){
+			con.println(strNames[intCountLead] + ": " + intWins[intCountLead]);
+		}
+
+		return;
+	}
+		
 }

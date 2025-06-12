@@ -98,8 +98,8 @@ public class CPTtools{
 			}
 		}		
 		return intMatch;
-		//return blnMatch;
 		// this will return the array for the coordinates of where to print the line
-		// the line will indicate where the connect four is
+		// the line will indicate where the connect four is	
+	
 	}
 }
